@@ -1,0 +1,256 @@
+<html>
+	<head>
+		<title>Saung IT</title>
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.2.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.2.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/saung.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme-1.3.2.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobile.theme-1.3.2.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.3.2.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.3.2.min.css"/>
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui-1.10.3.custom.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/twitter-styles.css"/>
+        <link rel="stylesheet" type="text/css" href="css/saungit.css"/>
+        <link rel="stylesheet" type="text/css" href="css/saungit.min.css"/>
+		<script type="text/javascript" src="js/jquery-1.9.1.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
+		<script type="text/javascript" src="js/jquery.mobile-1.3.2.min.js"></script>
+      <!--  <script type="text/javascript" src="js/twitterfeed.js"></script>-->
+        <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="js/navigation.js"></script>
+        <script type="text/javascript" src="js/sendPrivate.js"></script>
+        <script type="text/javascript" src="js/sendGroup.js"></script>
+
+		<script type="text/javascript">
+            
+            $(document).bind('mobileinit',function(){
+               $.mobile.selectmenu.prototype.options.nativeMenu = false;
+               $.mobile.selectmenu.prototype.options.hidePlaceholderMenuItems = false; 
+            });
+
+            </script>
+            <script type="text/javascript">
+            
+            $('#hasil').click(function(){
+            var url='http://localhost:81/saungit/new/saungit/inbox.php';
+            //var query;
+	           $('button').click(function(){
+                    query=$("#query").val();
+		            //$.getJSON(url+query,function(json){
+		              $.getJSON(url,function(json){
+                    $.each(json.results,function(i,respon){
+                    $("#hasil").append(respon.text);
+			});
+		});		
+	});
+});
+</script>
+			
+	</head>
+	<body>
+        <!--Form Login-->
+		<div data-role="page" id="formLogin" data-theme="a">
+			<div data-role="content" >
+				<div id="image" align="center">
+                    <image src="image/logo-saungit.png" alt="Saung IT" width="200"></image>
+				</div>
+				<form id="masuk" method="GET">
+					<input id="user" type="text" size="15" name="user" placeholder="Username"/><br/>
+					<input id="pass" type="password" size="15" name="pass" placeholder="Password"/><br/>
+                    <label id="error" style="color: red;">*Username atau Password Salah</label>
+					<input id="submit" type="submit" data-role="button" data-theme="a" value="Login"/>
+				</form>
+			</div>
+		</div>
+        
+        <!--Main Menu-->
+        <div data-role="page" id="mainmenu" data-theme="a">
+            <div data-role="content">
+                <center>
+                    <h1>SaungIT Messenger</h1>
+                    <table id="tabel-menu">
+                        <tr>
+                            <td><a href="#" onclick="create()"><img src="image/create.png"/></a></td>
+                            <td><a href="#" onclick="inbox()"><img src="image/inbox.png"/></a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" onclick="schedule()"><img src="image/schedule.png"/></a></td>
+                            <td><a href="#" onclick="twitter()"><img src="image/twitter.png"/></a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" onclick="help()"><img src="image/help.png"/></a></td>
+                            <td><a href="#"><img src="image/reader.png"/></a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" onclick="about()"><img src="image/about.png"/></a></td>
+                            <td><a href="#" onclick="logout()"><img src="image/logout.png"/></a></td>
+                        </tr>
+                    </table>
+                </center>
+            </div>
+        </div>
+		
+        <!--Page Create-->
+		<div data-role="page" id="create" data-theme="a">
+            <div data-role="header">
+                <table>
+                    <tr>
+                        <td><a href="#" onclick="kembali()"><img src="image/back.png" /></a></td>
+                        <td class="title">Create Messages</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div data-role="header" align="center">
+                <div data-role="navbar" data-type="horizontal">
+				    <ul>
+                        <li><a href="#" onclick="create()" data-role="button" class="ui-btn-active">Private</a></li>
+                        <li><a href="#" onclick="group()" data-role="button">Group</a></li>
+                    </ul>
+				</div>
+            </div>
+			<div data-role="content" id="form-private">
+				<form id="sendPrivate">
+                    <table width="100%">
+                        <tr>
+                            <td colspan="2"><input type="text" name="number" size="15" width="auto" placeholder="nomor" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><textarea name="text" rows="5"></textarea>
+                            <input type="hidden" name="uid" /></td>
+                        </tr>
+                        <tr>
+                            <td><input id="submit" type="submit" data-role="button" data-theme="a" value="Send"/></td>
+                            <td><input type="reset" value="Reset"/></td>
+                        </tr>
+                    </table>
+                    
+                </form>
+			</div>
+        </div>
+        
+        <!--Page Create Group-->
+        <div data-role="page" id="group" data-theme="a">
+            <div data-role="header">
+                <table>
+                    <tr>
+                        <td><a href="#" onclick="kembali()"><img src="image/back.png" /></a></td>
+                        <td class="title">Create Messages</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div data-role="header" align="center">
+                <div data-role="navbar" data-type="horizontal">
+				    <ul>
+                        <li><a href="#" onclick="create()" data-role="button">Private</a></li>
+                        <li><a href="#" onclick="group()" data-role="button" class="ui-btn-active">Group</a></li>
+                    </ul>
+				</div>
+            </div>
+			<div data-role="content" id="form-private">
+				<form id="sendGroup">
+                    <table width="100%">
+                        <tr>
+                            <td colspan="2">
+                                <!--<select width="auto" data-native-menu="false">
+                                    <option value="0" data-placeholder="true">Select Group</option>
+                                    <option value="analyze">Analyze</option>
+                                    <option value="designer">Designer</option>
+                                    <option value="programmer">Programmer</option>
+                                </select>
+                                -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><textarea name="text" rows="5"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td><input id="submit" type="submit" data-role="button" data-theme="a" value="Send" /></td>
+                            <td><input type="reset" value="Reset" name="reset" /></td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="gid" />
+                </form>
+			</div>
+        </div>
+		
+        <!--Page Inbox-->
+        <div data-role="page" id="inbox" data-theme="a">
+            <div data-role="header">
+                <table>
+                    <tr>
+                        <td><a href="#" onclick="kembali()"><img src="image/back.png" /></a></td>
+                        <td class="title">Inbox</td>
+                    </tr>
+                </table>
+            </div>
+            
+			<div data-role="content" id="list-inbox">
+				<ul class="list-inbox">
+					<li id="hasil">a</li>
+					
+				</ul>
+			</div>
+        </div>
+        
+        <!--Page Schedule-->
+		<div data-role="page" id="schedule" data-theme="a">
+            <div data-role="header">
+                <table>
+                    <tr>
+                        <td><a href="#" onclick="kembali()"><img src="image/back.png" /></a></td>
+                        <td class="title">Schedule</td>
+                    </tr>
+                </table>
+            </div>
+            
+			<div data-role="content" id="list-schedule">
+				<ul class="list-schedule">
+					<li>a</li>
+					<li>b</li>
+					<li>c</li>
+				</ul>
+			</div>
+        </div>
+        
+        <!--Twitter-->
+        <div data-role="page" id="twitter">
+            <div data-role="header">
+                <table>
+                    <tr>
+                        <td><a href="#" onclick="kembali()"><img src="image/back.png" /></a></td>
+                        <td class="title">Tweets</td>
+                    </tr>
+                </table>
+            </div>
+            <div data-role="content" id="twitter-feed">
+            </div>
+        </div>
+		
+        <!--About-->
+        <div data-role="page" id="about">
+            <div data-role="header">
+                <table>
+                    <tr>
+                        <td><a href="#" onclick="kembali()"><img src="image/back.png"/></a></td>
+                        <td class="title">Developer</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <!--Help-->
+        <div data-role="page" id="help">
+            <div data-role="header">
+                <table>
+                    <tr>
+                        <td><a href="#" onclick="kembali()"><img src="image/back.png"/></a></td>
+                        <td class="title">Help</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+	</body>
+</html>
