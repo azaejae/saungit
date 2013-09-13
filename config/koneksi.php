@@ -1,6 +1,6 @@
 <?php
     $server_db='localhost';
-    $user_db='root';
+    $user_db='';
     $pass_db='';
     $select_db='sms_pekat';
     
